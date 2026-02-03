@@ -2,8 +2,7 @@
 
 Public Class NCUDataExtractor
 
-    ' Ruta fija del catálogo
-    Private Const SourcePath As String = "D:\OneDrive\_CATIA\_V5R21-DLN\NCU\CATALOGO-NCU.xlsx"
+
     Public Function ExtractNCUData(oSheet As Microsoft.Office.Interop.Excel.Worksheet) As Dictionary(Of String, ExcelData)
 
         ' 1. Obtener última fila de forma segura
@@ -30,7 +29,6 @@ Public Class NCUDataExtractor
         Return oDic
     End Function
 
-
     Private Function GetLastRow(oSheet As Microsoft.Office.Interop.Excel.Worksheet) As Integer
         Try
             Dim lastCell = oSheet.Cells.Find("*", , , ,
@@ -42,6 +40,5 @@ Public Class NCUDataExtractor
             Return 0
         End Try
     End Function
-
 
 End Class
