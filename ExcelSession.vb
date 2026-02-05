@@ -25,8 +25,6 @@ Public Class ExcelSession
             AppActivate(excelPid)
             SendKeys.SendWait("{ESC}")
 
-
-
             Me.IsReady = True
 
         Catch ex As Runtime.InteropServices.COMException

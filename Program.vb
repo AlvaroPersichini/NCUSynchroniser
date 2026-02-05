@@ -1,9 +1,8 @@
-﻿
+﻿Option Explicit On
 
 Module Program
 
     Sub Main()
-
 
         Dim xlSession As New ExcelSession()
         If Not xlSession.IsReady Then
@@ -22,22 +21,26 @@ Module Program
 
 
 
-
         ' Active Sheet 
         Dim oActiveSheet As Microsoft.Office.Interop.Excel.Worksheet = xlSession.GetActiveSheet()
         If oActiveSheet Is Nothing Then
             Console.WriteLine(">>> [ERROR] No hay una hoja activa en el libro de Excel.")
             Return
         End If
-        Console.WriteLine($">>> Active Sheet Name: {oActiveSheet.Name}")
-
+        Dim workbookName As String = oActiveSheet.Parent.Name
+        Console.WriteLine($">>> Active Workbook Name: {workbookName}")
 
 
 
         ' Data Injection
+        Dim oNCUDataInjector As New NCUDataInjector()
+        oNCUDataInjector.InjectNCUDataToExcel(oActiveSheet, oNCUDic)
 
 
 
+
+
+        Console.WriteLine(">>> NCU Data Injection Completed.")
 
     End Sub
 
