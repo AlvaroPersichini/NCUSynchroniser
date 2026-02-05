@@ -5,8 +5,6 @@ Module Program
     Sub Main()
 
 
-
-
         ' Excel ActiveSheet
         Dim xlSession As New ExcelSession()
         If Not xlSession.IsReady Then
@@ -20,9 +18,6 @@ Module Program
         End If
         Dim workbookName As String = oActiveSheet.Parent.Name
         Console.WriteLine($">>> Active Workbook Name: {workbookName}")
-
-
-
 
 
         ' NCU Data Extraction
