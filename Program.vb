@@ -4,11 +4,25 @@ Module Program
 
     Sub Main()
 
+
+
+
+        ' Excel ActiveSheet
         Dim xlSession As New ExcelSession()
         If Not xlSession.IsReady Then
             Console.WriteLine(xlSession.ErrorMessage)
             Return
         End If
+        Dim oActiveSheet As Microsoft.Office.Interop.Excel.Worksheet = xlSession.GetActiveSheet()
+        If oActiveSheet Is Nothing Then
+            Console.WriteLine(">>> [ERROR] No hay una hoja activa en el libro de Excel.")
+            Return
+        End If
+        Dim workbookName As String = oActiveSheet.Parent.Name
+        Console.WriteLine($">>> Active Workbook Name: {workbookName}")
+
+
+
 
 
         ' NCU Data Extraction
@@ -21,25 +35,13 @@ Module Program
 
 
 
-        ' Active Sheet 
-        Dim oActiveSheet As Microsoft.Office.Interop.Excel.Worksheet = xlSession.GetActiveSheet()
-        If oActiveSheet Is Nothing Then
-            Console.WriteLine(">>> [ERROR] No hay una hoja activa en el libro de Excel.")
-            Return
-        End If
-        Dim workbookName As String = oActiveSheet.Parent.Name
-        Console.WriteLine($">>> Active Workbook Name: {workbookName}")
-
-
-
         ' Data Injection
         Dim oNCUDataInjector As New NCUDataInjector()
         oNCUDataInjector.InjectNCUDataToExcel(oActiveSheet, oNCUDic)
 
 
 
-
-
+        'Fin
         Console.WriteLine(">>> NCU Data Injection Completed.")
 
     End Sub

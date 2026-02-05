@@ -1,7 +1,5 @@
 ﻿Public Class NCUDataInjector
 
-
-
     Sub InjectNCUDataToExcel(oSheet As Microsoft.Office.Interop.Excel.Worksheet, oNCUDic As Dictionary(Of String, ExcelData))
 
         ' --- INYECCIÓN DE DATOS NCU EN LA HOJA ACTIVA DE EXCEL ---
@@ -23,7 +21,6 @@
 
             End If
         Next
-
 
         oSheet.Range("D:D, E:E, F:F, H:H, K:K").Columns.AutoFit()
         oSheet.Columns("E").ColumnWidth = 24
