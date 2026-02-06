@@ -61,28 +61,23 @@ Public Class ExcelSession
         End If
 
         Try
-            ' --- EFECTO FANTASMA ---
-            ' Congelamos la pantalla para que el usuario no vea el parpadeo del nuevo libro
+
             Me.Application.ScreenUpdating = False
-
-
-            ' Abrimos como ReadOnly para evitar carteles de "Archivo en uso"
             _ncuWorkbook = Me.Application.Workbooks.Open(ncuPath, ReadOnly:=True)
             _ncuWorkbook.Windows(1).Visible = False
 
-
-            ' Devolvemos la hoja
             Dim oSheet As Microsoft.Office.Interop.Excel.Worksheet = CType(_ncuWorkbook.Worksheets(1), Microsoft.Office.Interop.Excel.Worksheet)
 
-            ' Reactivamos la actualización de pantalla
             Me.Application.ScreenUpdating = True
 
             Return oSheet
+
         Catch ex As Exception
             Me.Application.ScreenUpdating = True
             Me.ErrorMessage = ex.Message
             Return Nothing
         End Try
+
     End Function
 
 
