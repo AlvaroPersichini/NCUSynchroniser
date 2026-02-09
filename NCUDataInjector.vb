@@ -2,7 +2,6 @@
 
     Sub InjectNCUDataToExcel(oSheet As Microsoft.Office.Interop.Excel.Worksheet, oNCUDic As Dictionary(Of String, ExcelData))
 
-
         Dim lastRow As Integer = oSheet.Cells(oSheet.Rows.Count, 1).End(Microsoft.Office.Interop.Excel.XlDirection.xlUp).Row
         Dim ncuCode As String
 
