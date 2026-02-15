@@ -4,39 +4,65 @@
 Module Program
 
     Sub Main()
+
+
         Console.WriteLine(">>> Starting Process...")
-        Console.WriteLine("------------------------------------------------")
 
-        Dim oExcelSession As New ExcelSession()
+        ' Directorios
         Const SourcePath As String = "D:\OneDrive\_CATIA\_V5R21-DLN\NCU\CATALOGO-NCU.xlsx"
-        Dim oNCUSheet As Microsoft.Office.Interop.Excel.Worksheet = oExcelSession.GetNCUSheet(SourcePath)
-        Dim oActiveWorkbook As Microsoft.Office.Interop.Excel.Workbook = oExcelSession.GetActiveWorkbook()
 
-        ' 3. VALIDACIÓN CRÍTICA: ¿Está todo listo?
-        If Not oExcelSession.IsReady OrElse oNCUSheet Is Nothing Then
-            Console.WriteLine("!!! ABORTING: Excel Session is not ready.")
+
+        ' Sesion de Excel
+        Dim oExcelSession As New ExcelSession()
+        If oExcelSession.App Is Nothing Then
             Console.WriteLine(oExcelSession.ErrorMessage)
             Exit Sub
         End If
 
-        ' Aquí oActiveWorkbook NO es Nothing
-        Dim oActivesheet As Microsoft.Office.Interop.Excel.Worksheet = oExcelSession.ActiveSheet
 
-        Console.WriteLine("------------------------------------------------")
-        Console.WriteLine($">>> Active Workbook Name: {oActiveWorkbook.Name}")
 
-        ' Extracción y Cierre
+        ' Obtener la hoja NCU
+        Dim oNCUSheet As Microsoft.Office.Interop.Excel.Worksheet = oExcelSession.GetNCUSheet(SourcePath)
+        If oNCUSheet Is Nothing Then
+            Console.WriteLine("No se pudo cargar la hoja NCU. " & oExcelSession.ErrorMessage)
+            Exit Sub
+        End If
+
+        ' Extracción 
         Dim oNCUDataExtractor As New NCUDataExtractor()
         Dim oNCUDic As Dictionary(Of String, ExcelData) = oNCUDataExtractor.ExtractNCUData(oNCUSheet)
-        oExcelSession.CloseNCU()
 
         Console.WriteLine($">>> NCU Data Extracted: {oNCUDic.Count} items.")
 
+        ' Cierre
+        oExcelSession.CloseNCU()
+
+
+
+
+        ' Obtener el WorkSheet activo
+        Dim oActiveSheet As Microsoft.Office.Interop.Excel.Worksheet = oExcelSession.GetActiveSheet()
+        If oActiveSheet Is Nothing Then
+            Console.WriteLine("ActiveWorkbook is nothing. " & oExcelSession.ErrorMessage)
+            Exit Sub
+        End If
+
+        Console.WriteLine($">>> Target Sheet: {oActiveSheet.Name}")
+
+
+
         ' Inyección
         Dim oNCUDataInjector As New NCUDataInjector()
-        oNCUDataInjector.InjectNCUDataToExcel(oActivesheet, oNCUDic)
+        oNCUDataInjector.InjectNCUDataToExcel(oActiveSheet, oNCUDic)
+
+
+
 
         Console.WriteLine(">>> NCU Data Injection Completed.")
+
+
+
+
     End Sub
 
 End Module
