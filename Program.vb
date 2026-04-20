@@ -1,6 +1,5 @@
 ﻿Option Explicit On
 
-
 Module Program
 
     Sub Main()
@@ -8,12 +7,13 @@ Module Program
 
         Console.WriteLine(">>> Starting Process...")
 
+
         ' Directorios
         Const SourcePath As String = "D:\OneDrive\_CATIA\_V5R21-DLN\NCU\CATALOGO-NCU.xlsx"
 
 
         ' Sesion de Excel
-        Dim oExcelSession As New ExcelSession()
+        Dim oExcelSession As New ExcelSession
         If oExcelSession.App Is Nothing Then
             Console.WriteLine(oExcelSession.ErrorMessage)
             Exit Sub
@@ -28,15 +28,17 @@ Module Program
             Exit Sub
         End If
 
+
+
         ' Extracción 
         Dim oNCUDataExtractor As New NCUDataExtractor()
         Dim oNCUDic As Dictionary(Of String, ExcelData) = oNCUDataExtractor.ExtractNCUData(oNCUSheet)
-
         Console.WriteLine($">>> NCU Data Extracted: {oNCUDic.Count} items.")
+
+
 
         ' Cierre
         oExcelSession.CloseNCU()
-
 
 
 
@@ -47,8 +49,9 @@ Module Program
             Exit Sub
         End If
 
-        Console.WriteLine($">>> Target Sheet: {oActiveSheet.Name}")
 
+
+        Console.WriteLine($">>> Target Sheet: {oActiveSheet.Name}")
 
 
         ' Inyección
@@ -56,11 +59,7 @@ Module Program
         oNCUDataInjector.InjectNCUDataToExcel(oActiveSheet, oNCUDic)
 
 
-
-
         Console.WriteLine(">>> NCU Data Injection Completed.")
-
-
 
 
     End Sub
