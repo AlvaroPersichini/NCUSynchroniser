@@ -1,4 +1,5 @@
 ﻿Option Explicit On
+Imports CatiaExcelClassLibrary
 
 Module Program
 
@@ -8,13 +9,9 @@ Module Program
         Console.WriteLine(">>> Starting Process...")
 
 
-        ' Directorios
-        Const SourcePath As String = "D:\OneDrive\_CATIA\_V5R21-DLN\NCU\CATALOGO-NCU.xlsx"
-
-
         ' Sesion de Excel
         Dim oExcelSession As New ExcelSession
-        If oExcelSession.App Is Nothing Then
+        If oExcelSession.Application Is Nothing Then
             Console.WriteLine(oExcelSession.ErrorMessage)
             Exit Sub
         End If
@@ -22,6 +19,7 @@ Module Program
 
 
         ' Obtener la hoja NCU
+        Const SourcePath As String = "D:\OneDrive\_CATIA\_V5R21-DLN\NCU\CATALOGO-NCU.xlsx"
         Dim oNCUSheet As Microsoft.Office.Interop.Excel.Worksheet = oExcelSession.GetNCUSheet(SourcePath)
         If oNCUSheet Is Nothing Then
             Console.WriteLine("No se pudo cargar la hoja NCU. " & oExcelSession.ErrorMessage)
@@ -42,7 +40,7 @@ Module Program
 
 
 
-        ' Obtener el WorkSheet activo
+        '' Obtener el WorkSheet activo
         Dim oActiveSheet As Microsoft.Office.Interop.Excel.Worksheet = oExcelSession.GetActiveSheet()
         If oActiveSheet Is Nothing Then
             Console.WriteLine("ActiveWorkbook is nothing. " & oExcelSession.ErrorMessage)
@@ -51,7 +49,7 @@ Module Program
 
 
 
-        Console.WriteLine($">>> Target Sheet: {oActiveSheet.Name}")
+        'Console.WriteLine($">>> Target Sheet: {oActiveSheet.Name}")
 
 
         ' Inyección

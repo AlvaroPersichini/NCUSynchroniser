@@ -73,8 +73,6 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExcelData.vb" />
-    <Compile Include="ExcelSession.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -97,8 +95,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="NCUDataExtractor.vb" />
-    <Compile Include="NCUDataInjector.vb" />
     <Compile Include="Program.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +157,12 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CatiaExcelClassLibrary\CatiaExcelClassLibrary.vbproj">
+      <Project>{e6699062-1b97-4aee-ad7b-0c8ba1184749}</Project>
+      <Name>CatiaExcelClassLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
